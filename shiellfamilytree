@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Tree Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <div class="mermaid">
+        graph TD;
+        %% William Shiell Snr and Mary McNamara
+        id1((Queely Shiell)) --> marriage1{{"William Shiell Snr + Mary McNamara"}};
+        marriage1 --> id3((William Shiell Jnr));
+        marriage1 --> id12((John Shiell));
+        marriage1 --> id13((Maria Shiell));
+        marriage1 --> id14((Eleanor Shiell));
+
+        %% William Shiell Jnr and Hannah Birkinshaw
+        id3((William Shiell Jnr)) --> marriage2{{"William Shiell Jnr + Hannah Birkinshaw"}};
+        marriage2 --> id15((Frances Shiell));
+        marriage2 --> id4((George Shiell));
+        marriage2 --> id16((William Jnr Jnr Shiell));
+        marriage2 --> id17((Edward Shiell));
+        marriage2 --> id18((William Henry Shiell));
+        marriage2 --> id19((John Shiell));
+
+        %% George Shiell and descendants
+        id4((George Shiell)) --> marriage3{{"George Shiell + Spouse"}};
+        marriage3 --> id20((William Shiell));
+        marriage3 --> id21((Margaret Shiell));
+        marriage3 --> id22((George Shiell));
+        marriage3 --> id23((Ellen Shiell));
+        marriage3 --> id24((William Henry Shiell));
+        marriage3 --> id5((Leslie Shiell));
+
+        %% Leslie Shiell and Spouse
+        id5((Leslie Shiell)) --> marriage4{{"Leslie Shiell + Spouse"}};
+        marriage4 --> id25((Helen Shiell));
+        marriage4 --> id26((Judith Shiell));
+        marriage4 --> id9((John Shiell));
+
+        %% John Shiell and Wendy Shiell
+        id9((John Shiell)) --> marriage5{{"John Shiell + Wendy Shiell"}};
+        marriage5 --> id10((Gary Shiell));
+        marriage5 --> id11((Craig Shiell));
+        marriage5 --> id31((Katrina Shiell));
+
+        %% Gary Shiell and Meredith Pritchard
+        id10((Gary Shiell)) --> marriage6{{"Gary Shiell + Meredith Pritchard"}};
+        marriage6 --> id27((Alexandra Shiell));
+        marriage6 --> id28((Marcellus Shiell));
+
+        %% Craig Shiell and Spouse
+        id11((Craig Shiell)) --> marriage7{{"Craig Shiell + Spouse"}};
+        marriage7 --> id29((Madeleine Shiell));
+        marriage7 --> id30((Georgia Shiell));
+
+        %% Katrina Shiell and Steve McCrae
+        id31((Katrina Shiell)) --> marriage8{{"Katrina Shiell + Steve McCrae"}};
+        marriage8 --> id32((Jarod Shiell));
+        marriage8 --> id33((Kiana Shiell));
+        marriage8 --> id34((Jaimi Shiell));
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+const familyData = {
+    "Queely Shiell": {
+        biography: "Biography of Queely Shiell.",
+        relations: ["William Shiell Snr", "Mary McNamara"]
+    },
+    "William Shiell Snr": {
+        biography: "Biography of William Shiell Snr.",
+        relations: ["Mary McNamara", "William Shiell Jnr", "John Shiell", "Maria Shiell", "Eleanor Shiell"]
+    },
+    "William Shiell Jnr": {
+        biography: "Biography of William Shiell Jnr.",
+        relations: ["Hannah Birkinshaw", "Frances Shiell", "George Shiell", "William Jnr Jnr Shiell", "Edward Shiell", "William Henry Shiell", "John Shiell"]
+    },
+    // Add more family members here with their biographies and relations
+};
+
+document.addEventListener('click', function(event) {
+    const memberName = event.target.textContent;
+
+    if (familyData[memberName]) {
+        alert(`Biography: ${familyData[memberName].biography}\nRelations: ${familyData[memberName].relations.join(', ')}`);
+    }
+});
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.mermaid {
+    margin: 20px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
