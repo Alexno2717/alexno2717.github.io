@@ -1,108 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Family Tree Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-</head>
-<body>
-    <div class="mermaid">
-        graph TD;
-        %% William Shiell Snr and Mary McNamara
-        id1((Queely Shiell)) --> marriage1{{"William Shiell Snr + Mary McNamara"}};
-        marriage1 --> id3((William Shiell Jnr));
-        marriage1 --> id12((John Shiell));
-        marriage1 --> id13((Maria Shiell));
-        marriage1 --> id14((Eleanor Shiell));
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Family Tree Dashboard</title>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+        <style>
+          /* Styling for the biography tooltips */
+          .tooltip {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 10;
+            pointer-events: none; /* Prevent tooltips from blocking interactions */
+          }
+      
+          .date {
+            font-weight: bold;
+            display: none;
+          }
+      
+          .node {
+            cursor: pointer; /* Make nodes interactive */
+          }
+        </style>
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    </head>
+    
+    <body>
+        <h1>Shiell Family Tree</h1>
+        <div class="mermaid">
+            graph TD;
+            %% Queely Shiell and his children
+            id1(("Queely Shiell")):::node --> id2(("William Shiell Snr")):::node;
+            id2 --> marriage1{{"William Snr + Mary McNamara"}}:::node;
+            marriage1 --> id3(("William Shiell Jnr")):::node;
+            id1 --> id12(("John Shiell Snr Snr")):::node;
+            id1 --> id13(("Maria Shiell")):::node;
+            id1 --> id14(("Eleanor Shiell")):::node;
+            id1 --> id15(("James Phipps")):::node;
+            
+            %% James Phipps and his descendants
+            id15 --> marriage2{{"James Phipps + Spouse"}}:::node;
+            marriage2 --> id16(("Mathew Dowdy")):::node;
+            id16 --> marriage3{{"Mathew Dowdy + Spouse"}}:::node;
+            marriage3 --> id17(("Mathew Phipps")):::node;
+            
+            %% William Shiell Jnr and Hannah Birkinshaw
+            id3 --> marriage4{{"William Shiell Jnr + Hannah Birkinshaw"}}:::node;
+            marriage4 --> id18(("Frances Shiell")):::node;
+            marriage4 --> id4(("George Shiell Snr")):::node;
+            marriage4 --> id19(("William Jnr Jnr Shiell")):::node;
+            marriage4 --> id20(("Edward Shiell")):::node;
+            marriage4 --> id21(("William Henry Shiell")):::node;
+            marriage4 --> id22(("John Shiell Snr")):::node;
+            marriage4 --> id39(("Richard Shiell")):::node;
+            marriage4 --> id40(("Edith Shiell")):::node;
+            marriage4 --> id41(("Henry Shiell")):::node;
+            
+            %% George Shiell and descendants
+            id4 --> marriage5{{"George Shiell + Spouse"}}:::node;
+            marriage5 --> id23(("William Shiell")):::node;
+            marriage5 --> id24(("Margaret Shiell")):::node;
+            marriage5 --> id25(("George Shiell Jnr")):::node;
+            marriage5 --> id26(("Ellen Shiell")):::node;
+            marriage5 --> id27(("William Henry Shiell Jnr")):::node;
+            marriage5 --> id5(("Leslie Shiell")):::node;
+            
+            %% Leslie Shiell and Spouse
+            id5 --> marriage6{{"Leslie Shiell + Spouse"}}:::node;
+            marriage6 --> id28(("Helen Shiell")):::node;
+            marriage6 --> id29(("Judith Shiell")):::node;
+            marriage6 --> id9(("John Shiell")):::node;
+            
+            %% John Shiell and Wendy Shiell
+            id9 --> marriage7{{"John Shiell + Wendy Shiell"}}:::node;
+            marriage7 --> id10(("Gary Shiell")):::node;
+            marriage7 --> id11(("Craig Shiell")):::node;
+            marriage7 --> id31(("Katrina Shiell")):::node;
+            
+            %% Gary Shiell and Meredith Pritchard
+            id10 --> marriage8{{"Gary Shiell + Meredith Pritchard"}}:::node;
+            marriage8 --> id32(("Alexandra Shiell")):::node;
+            marriage8 --> id33(("Marcellus Shiell")):::node;
+            
+            %% Craig Shiell and Spouse
+            id11 --> marriage9{{"Craig Shiell + Spouse"}}:::node;
+            marriage9 --> id34(("Madeleine Shiell")):::node;
+            marriage9 --> id35(("Georgia Shiell")):::node;
+            
+            %% Katrina Shiell and Steve McCrae
+            id31 --> marriage10{{"Katrina Shiell + Steve McCrae"}}:::node;
+            marriage10 --> id36(("Jarod McCrae")):::node;
+            marriage10 --> id37(("Kiana McCrae")):::node;
+            marriage10 --> id38(("Jaimi McCrae")):::node;
+            
+            classDef node fill:#f9f9f9,stroke:#333,stroke-width:2px;
+        </div>
 
-        %% William Shiell Jnr and Hannah Birkinshaw
-        id3((William Shiell Jnr)) --> marriage2{{"William Shiell Jnr + Hannah Birkinshaw"}};
-        marriage2 --> id15((Frances Shiell));
-        marriage2 --> id4((George Shiell));
-        marriage2 --> id16((William Jnr Jnr Shiell));
-        marriage2 --> id17((Edward Shiell));
-        marriage2 --> id18((William Henry Shiell));
-        marriage2 --> id19((John Shiell));
+        <!-- Tooltip container for biographies -->
+        <div id="tooltip" class="tooltip"></div>
 
-        %% George Shiell and descendants
-        id4((George Shiell)) --> marriage3{{"George Shiell + Spouse"}};
-        marriage3 --> id20((William Shiell));
-        marriage3 --> id21((Margaret Shiell));
-        marriage3 --> id22((George Shiell));
-        marriage3 --> id23((Ellen Shiell));
-        marriage3 --> id24((William Henry Shiell));
-        marriage3 --> id5((Leslie Shiell));
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const familyData = {
+                    "Queely Shiell": {
+                        biography: "(1989-1999), Queely Shiell nicknamed the progenitor of the Sheill clan was the largest landowner in Montserrat, owning multiple estates and receiving compensation for enslaved individuals upon abolition in 1834. He was most likely of Irish descent.",
+                        },
+                "William Shiell Snr": {
+                    biography: "(1785-1853), William Shiell held various administrative roles, including President of the Council in 1834, 1836, and from 1839 to 1847. Despite reports of financial irregularities leading to his resignation in 1850, he remained influential. Notably, his illegitimate son, also named William (1823–1899), emigrated to Australia in the 1850s..",
+                },
+                "James Phipps": {
+                    biography: "(1790-1834), James Phipps became Comptroller of Customs, serving on the Montserrat Assembly until his death.",
+                },
+                "John Shiell Snr Snr": {
+                    biography: "(1788-1843), John Shiell Snr Snr became a barrister after overseeing the running of the plantation estates.",
+                },
+                "Maria Shiell": {
+                    biography: "(1792-1792), Maria Shiell passed away in infancy.",
+                },
+                "Eleanor Shiell": {
+                    biography: "(?), Not much is known about Eleanor Shiell except she was a daughter of Queely.",
+                },
+                "Mathew Dowdy": {
+                    biography: "(1824–1888), Mathew Dowdy was likely a illegitimate child to James Phipps and went on to become a trader, ship owner, store keeper and a Methodist lay-preacher.",
+                },
+                "Mathew Phipps": {
+                    biography: "(1865–1947), Mathew Phipps was a British writer known for supernatural horror and scientific romances, notably 'The Purple Cloud'. claimed to be the King of Redonda, a micronation based on a small Caribbean island, inheriting the title from his father, Matthew Dowdy Shiell. The 'Kingdom of Redonda' was more of a literary tradition than a political entity, and Shiel passed the title to others within his literary circle.",
+                },
+                "William Shiell Jnr": {
+                    biography: "(1823-1899) William Shiell Jnr emigrated across to Homebush, Australia on the Gazelle with the propspect of finding gold and struck luck as a miner, allowing him to purchase land.",
+                },
+                "Edward Shiell": {
+                    biography: "(1864-1933) Edward Shiell known as 'Ted' worked in the mines with his father, helping lay track for a new railway in Gippsland.",
+                },
+                "John Shiell Snr": {
+                    biography: "(1869-1917) John Shiell worked in the mines as a platt foreman in the Excelsior mine owned by brother George Shiell.",
+                },
+                "William Henry Shiell": {
+                    biography: "(1966-1949) William Henry Shiell was a repairman on the railway lines.",
+                },
+                "Richard Shiell": {
+                    biography: "(1871-1937) Richard Shiell was well respected and worked in the mines and then the railways as a line patrolman. He moved to Geelong later in life.",
+                },
+                "Edith Shiell": {
+                    biography: "(1873-1944) Edith Shiell assumed the role of housekeeper when her mother Hannah passed.",
+                },
+                "Henry Shiell": {
+                    biography: "(1876-1893) Henry Shiell unfortunately lived a short life, passing at the young age of 16 but attended Upper Homebush school.",
+                },
+                "Frances Shiell": {
+                    biography: "(1861-1951) Frances Shiell worked as a domestic servant helping out the community until her husband tragically was killed at war. She was fit until into old age, noted for being exceptionally active and agile.",
+                },
+                "William Jnr Jnr Shiell": {
+                    biography: "(1864-1864) William Jnr Jnr Shiell unfortunately passed away at three weeks old.",
+                },
+                "George Shiell Snr": {
+                    biography: "(1862-1934) A kind and popular man who was well respected in Avoca. He opened the Excelsior Reef mine in Homebush, only selling his sahre in 1914 to turn his attention to wool growing.",
+                },
+                "Leslie Shiell": {
+                    biography: "(1905-1984) Leslie Shiell inspired countless students as a beloved teacher and mentor.",
+                },
+                "Gary Shiell": {
+                    biography: "(1965-) Gary Shiell has been a long-serving educator at Haileybury's Berwick campus, contributing to its development over 34 years, particularly in Mathematics, Science, Geography, and IT.",
+                },
+                "Craig Shiell": {
+                    biography: "(1968-) Craig Shiell.",
+                },
+                "Katrina Shiell": {
+                    biography: "(1971-)Katrina Shiell.",
+                },
+                    // Add other family members here...
+                };
 
-        %% Leslie Shiell and Spouse
-        id5((Leslie Shiell)) --> marriage4{{"Leslie Shiell + Spouse"}};
-        marriage4 --> id25((Helen Shiell));
-        marriage4 --> id26((Judith Shiell));
-        marriage4 --> id9((John Shiell));
+                const tooltip = document.getElementById('tooltip');
 
-        %% John Shiell and Wendy Shiell
-        id9((John Shiell)) --> marriage5{{"John Shiell + Wendy Shiell"}};
-        marriage5 --> id10((Gary Shiell));
-        marriage5 --> id11((Craig Shiell));
-        marriage5 --> id31((Katrina Shiell));
+                // Add hover listeners to each node
+                setTimeout(() => {
+                    document.querySelectorAll('.node').forEach(node => {
+                        const memberName = node.textContent.trim();
 
-        %% Gary Shiell and Meredith Pritchard
-        id10((Gary Shiell)) --> marriage6{{"Gary Shiell + Meredith Pritchard"}};
-        marriage6 --> id27((Alexandra Shiell));
-        marriage6 --> id28((Marcellus Shiell));
+                        if (familyData[memberName]) {
+                            const biography = familyData[memberName].biography;
 
-        %% Craig Shiell and Spouse
-        id11((Craig Shiell)) --> marriage7{{"Craig Shiell + Spouse"}};
-        marriage7 --> id29((Madeleine Shiell));
-        marriage7 --> id30((Georgia Shiell));
+                            node.addEventListener('mouseover', (event) => {
+                                tooltip.textContent = biography;
+                                tooltip.style.left = `${event.pageX + 10}px`;
+                                tooltip.style.top = `${event.pageY + 10}px`;
+                                tooltip.style.display = 'block';
+                            });
 
-        %% Katrina Shiell and Steve McCrae
-        id31((Katrina Shiell)) --> marriage8{{"Katrina Shiell + Steve McCrae"}};
-        marriage8 --> id32((Jarod Shiell));
-        marriage8 --> id33((Kiana Shiell));
-        marriage8 --> id34((Jaimi Shiell));
-    </div>
+                            node.addEventListener('mousemove', (event) => {
+                                tooltip.style.left = `${event.pageX + 10}px`;
+                                tooltip.style.top = `${event.pageY + 10}px`;
+                            });
 
-    <script src="script.js"></script>
-</body>
+                            node.addEventListener('mouseout', () => {
+                                tooltip.style.display = 'none';
+                            });
+                        }
+                    });
+                }, 500); // Delay to allow Mermaid to render
+            });
+        </script>
+    </body>
 </html>
-
-const familyData = {
-    "Queely Shiell": {
-        biography: "Biography of Queely Shiell.",
-        relations: ["William Shiell Snr", "Mary McNamara"]
-    },
-    "William Shiell Snr": {
-        biography: "Biography of William Shiell Snr.",
-        relations: ["Mary McNamara", "William Shiell Jnr", "John Shiell", "Maria Shiell", "Eleanor Shiell"]
-    },
-    "William Shiell Jnr": {
-        biography: "Biography of William Shiell Jnr.",
-        relations: ["Hannah Birkinshaw", "Frances Shiell", "George Shiell", "William Jnr Jnr Shiell", "Edward Shiell", "William Henry Shiell", "John Shiell"]
-    },
-    // Add more family members here with their biographies and relations
-};
-
-document.addEventListener('click', function(event) {
-    const memberName = event.target.textContent;
-
-    if (familyData[memberName]) {
-        alert(`Biography: ${familyData[memberName].biography}\nRelations: ${familyData[memberName].relations.join(', ')}`);
-    }
-});
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-}
-
-.mermaid {
-    margin: 20px;
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
